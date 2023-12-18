@@ -3,9 +3,12 @@ pragma solidity =0.5.16;
 
 import './interfaces/IPancakeFactory.sol';
 import './PancakePair.sol';
+import {Register} from './interfaces/ISFS.sol';
 
 contract PancakeFactory is IPancakeFactory {
     bytes32 public constant INIT_CODE_PAIR_HASH = keccak256(abi.encodePacked(type(PancakePair).creationCode));
+
+    address SFSAddress;
 
     address public feeTo;
     address public feeToSetter;
@@ -15,8 +18,20 @@ contract PancakeFactory is IPancakeFactory {
 
     event PairCreated(address indexed token0, address indexed token1, address pair, uint);
 
-    constructor(address _feeToSetter) public {
+    constructor(address _feeToSetter, address _SFSAddress) public {
         feeToSetter = _feeToSetter;
+        SFSAddress = _SFSAddress;
+        Register(_SFSAddress).register(msg.sender);
+    }
+
+    function setSFSAddress(address newAddress) external {
+        require(msg.sender == feeToSetter, 'Pancake: FORBIDDEN');
+        SFSAddress = newAddress;
+    }
+
+    function changeSFSReceiver(address newReceiver) external {
+        require(msg.sender == feeToSetter, 'Pancake: FORBIDDEN');
+        Register(SFSAddress).register(newReceiver);
     }
 
     function allPairsLength() external view returns (uint) {

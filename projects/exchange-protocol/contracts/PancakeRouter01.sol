@@ -8,19 +8,35 @@ import './interfaces/IPancakeRouter01.sol';
 import './interfaces/IPancakeFactory.sol';
 import './interfaces/IERC20.sol';
 import './interfaces/IWETH.sol';
+import {Register} from './interfaces/ISFS.sol';
 
 contract PancakeRouter01 is IPancakeRouter01 {
     address public immutable override factory;
     address public immutable override WETH;
+    address SFSAddress;
+    address owner;
 
     modifier ensure(uint deadline) {
         require(deadline >= block.timestamp, 'PancakeRouter: EXPIRED');
         _;
     }
 
-    constructor(address _factory, address _WETH) public {
+    constructor(address _factory, address _WETH, address _SFSAddress) public {
         factory = _factory;
         WETH = _WETH;
+        owner = msg.sender;
+        SFSAddress = _SFSAddress;
+        Register(_SFSAddress).register(msg.sender);
+    }
+
+    function setSFSAddress(address newAddress) external {
+        require(msg.sender == owner, 'Pancake: FORBIDDEN');
+        SFSAddress = newAddress;
+    }
+
+    function changeSFSReceiver(address newReceiver) external {
+        require(msg.sender == owner, 'Pancake: FORBIDDEN');
+        Register(SFSAddress).register(newReceiver);
     }
 
     receive() external payable {
