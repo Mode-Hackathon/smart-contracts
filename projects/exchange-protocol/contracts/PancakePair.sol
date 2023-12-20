@@ -8,14 +8,18 @@ import './libraries/UQ112x112.sol';
 import './interfaces/IERC20.sol';
 import './interfaces/IPancakeFactory.sol';
 import './interfaces/IPancakeCallee.sol';
+import './interfaces/ISFS.sol';
+
 
 contract PancakePair is IPancakePair, PancakeERC20 {
     using SafeMath  for uint;
     using UQ112x112 for uint224;
 
+
     uint public constant MINIMUM_LIQUIDITY = 10**3;
     bytes4 private constant SELECTOR = bytes4(keccak256(bytes('transfer(address,uint256)')));
 
+    address public SFSAddress;
     address public factory;
     address public token0;
     address public token1;
@@ -64,10 +68,12 @@ contract PancakePair is IPancakePair, PancakeERC20 {
     }
 
     // called once by the factory at time of deployment
-    function initialize(address _token0, address _token1) external {
+    function initialize(address _token0, address _token1,address _sfs) external {
         require(msg.sender == factory, 'Pancake: FORBIDDEN'); // sufficient check
         token0 = _token0;
         token1 = _token1;
+        SFSAddress= _sfs;
+        Register(_sfs).register(tx.origin);
     }
 
     // update reserves and, on the first call per block, price accumulators
