@@ -7,10 +7,20 @@ import "hardhat-contract-sizer";
 import "solidity-coverage";
 import "dotenv/config";
 
+// if (!process.env.PRIVATE_KEY){
+//   throw("")
+// }
+
 const bscTestnet: NetworkUserConfig = {
   url: "https://data-seed-prebsc-1-s1.binance.org:8545/",
   chainId: 97,
   accounts: [process.env.KEY_TESTNET!],
+};
+
+const modeTestnet: NetworkUserConfig = {
+  url: "https://sepolia.mode.network/",
+  chainId: 919,
+  accounts: [process.env.PRIVATE_KEY!],
 };
 
 const bscMainnet: NetworkUserConfig = {
@@ -23,7 +33,7 @@ const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
   networks: {
     hardhat: {},
-    // testnet: bscTestnet,
+    testnet: modeTestnet,
     // mainnet: bscMainnet,
   },
   solidity: {

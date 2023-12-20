@@ -4,7 +4,8 @@
   "description": "Pancake contracts",
   "private": true,
   "workspaces": [
-    "projects/**"
+    "projects/**",
+    "common"
   ],
   "repository": "https://github.com/pancakeswap/pancake-contracts",
   "author": "PancakeSwap",

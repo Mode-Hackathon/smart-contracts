@@ -220,6 +220,21 @@
   },
   {
     "constant": true,
+    "inputs": [],
+    "name": "SFSAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
     "inputs": [
       {
         "internalType": "address",
@@ -383,6 +398,11 @@
       {
         "internalType": "address",
         "name": "_token1",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_sfs",
         "type": "address"
       }
     ],

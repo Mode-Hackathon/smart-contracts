@@ -10,6 +10,11 @@
         "internalType": "address",
         "name": "_WETH",
         "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_SFSAddress",
+        "type": "address"
       }
     ],
     "stateMutability": "nonpayable",
@@ -144,6 +149,19 @@
       }
     ],
     "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newReceiver",
+        "type": "address"
+      }
+    ],
+    "name": "changeSFSReceiver",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -537,6 +555,19 @@
         "type": "uint256"
       }
     ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newAddress",
+        "type": "address"
+      }
+    ],
+    "name": "setSFSAddress",
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
