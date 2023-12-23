@@ -28,7 +28,7 @@ const main = async () => {
     }
     console.log(contracts)
 
-    writeFileSync(`./deployments/${network.name}.json`, JSON.stringify(contracts, null, 2))
+    writeFileSync(`./deployments/${network.name}1.json`, JSON.stringify(contracts, null, 2))
 }
 
 main()
